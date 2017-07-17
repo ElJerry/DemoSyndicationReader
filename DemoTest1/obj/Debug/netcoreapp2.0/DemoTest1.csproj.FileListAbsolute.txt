@@ -16,3 +16,12 @@ C:\Users\Gerardo\Desktop\DemoTest1\DemoTest1\DemoTest1\obj\Debug\netcoreapp2.0\D
 C:\Users\Gerardo\Desktop\DemoTest1\DemoTest1\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.AssemblyInfo.cs
 C:\Users\Gerardo\Desktop\DemoTest1\DemoTest1\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.dll
 C:\Users\Gerardo\Desktop\DemoTest1\DemoTest1\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.pdb
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\DemoTest1.deps.json
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\DemoTest1.runtimeconfig.json
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\DemoTest1.runtimeconfig.dev.json
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\DemoTest1.dll
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\DemoTest1.pdb
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.csprojResolveAssemblyReference.cache
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.AssemblyInfo.cs
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.dll
+C:\Users\Gerardo\Desktop\DemoTest1\DemoSyndicationReader\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.pdb

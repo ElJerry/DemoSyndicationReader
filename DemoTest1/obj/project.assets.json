@@ -1547,10 +1547,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gerardo\\Desktop\\DemoTest1\\DemoTest1\\DemoTest1\\DemoTest1.csproj",
+      "projectUniqueName": "C:\\Users\\Gerardo\\Desktop\\DemoTest1\\DemoSyndicationReader\\DemoTest1\\DemoTest1.csproj",
       "projectName": "DemoTest1",
-      "projectPath": "C:\\Users\\Gerardo\\Desktop\\DemoTest1\\DemoTest1\\DemoTest1\\DemoTest1.csproj",
-      "outputPath": "C:\\Users\\Gerardo\\Desktop\\DemoTest1\\DemoTest1\\DemoTest1\\obj\\",
+      "projectPath": "C:\\Users\\Gerardo\\Desktop\\DemoTest1\\DemoSyndicationReader\\DemoTest1\\DemoTest1.csproj",
+      "outputPath": "C:\\Users\\Gerardo\\Desktop\\DemoTest1\\DemoSyndicationReader\\DemoTest1\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp2.0"

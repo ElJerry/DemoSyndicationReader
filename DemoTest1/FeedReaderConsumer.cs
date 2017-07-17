@@ -27,11 +27,12 @@ namespace DemoTest1
             double size = new System.IO.FileInfo(filePath).Length;
             double currentSize = 0;
             int itemsRead = 0;
-            //Average size of an item 477 bytes.
 
-            Tuple<double, string> sizeInfo = ConvertBytesToSize(size);   
+            Tuple<double, string> sizeInfo = ConvertBytesToSize(size);
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Size of the Feed: {0:N2} {1}",sizeInfo.Item1,sizeInfo.Item2); 
             Console.Write("Verbose Items (Y/N): ");
+            Console.ForegroundColor = ConsoleColor.White;
             string input = Console.ReadLine();
             verbose = ValidateVerbose(input);
 
@@ -46,7 +47,10 @@ namespace DemoTest1
 
                 while (await reader.Read())
                 {
-                    //ClearLine(Console.CursorTop);
+                    if (verbose)
+                    {
+                        ClearInformation();
+                    }
 
                     switch (reader.ElementType)
                     {
@@ -108,69 +112,50 @@ namespace DemoTest1
                     }
 
                     double percentage = Math.Min(((currentSize * 100) / size), 90);
-                    //double percentage = ((currentSize * 100) / size);
 
                     WriteInformation(percentage, itemsRead, stopWatch.Elapsed);
-                    //Thread.Sleep(20);
                 }
             }
-            ClearLine(Console.CursorTop);
-            Console.WriteLine("Finished Reading, press enter to close.");
+            ClearInformation();
+            Console.WriteLine("Finished Reading, press enter to close.\n\n");
             WriteInformation(100, itemsRead, stopWatch.Elapsed);
             Console.ReadLine();
         }
 
         private void DisplayContent(ISyndicationContent content)
         {
-            ClearLine(Console.CursorTop);
             Console.WriteLine("--- Content read ---");
-            ClearLine(Console.CursorTop);
             Console.WriteLine(content.Name + ": " + content.RawContent);
-            ClearLine(Console.CursorTop);
             Console.WriteLine();
         }
 
         private void DisplayItem(ISyndicationItem item)
         {
-            ClearLine(Console.CursorTop);
             Console.WriteLine("--- Item Read ---");
-            ClearLine(Console.CursorTop);
             Console.WriteLine("Title: " + item.Title);
-            ClearLine(Console.CursorTop);
             Console.WriteLine("Description: " + item.Description);
-            ClearLine(Console.CursorTop);
             Console.WriteLine("PubDate: " + item.Published);
-            ClearLine(Console.CursorTop);
             Console.WriteLine();
         }
 
         private void DisplayPerson(ISyndicationPerson person)
         {
-            ClearLine(Console.CursorTop);
             Console.WriteLine("--- Person Read ---");
-            ClearLine(Console.CursorTop);
             Console.WriteLine("Email: " + person.Email);
-            ClearLine(Console.CursorTop);
             Console.WriteLine();
         }
 
         private void DisplayImage(ISyndicationImage image)
         {
-            ClearLine(Console.CursorTop);
             Console.WriteLine("--- Image Read ---");
-            ClearLine(Console.CursorTop);
             Console.WriteLine("Image Link: " + image.Link.Uri.AbsoluteUri);
-            ClearLine(Console.CursorTop);
             Console.WriteLine();
         }
 
         private void DisplayLink(ISyndicationLink link)
         {
-            ClearLine(Console.CursorTop);
             Console.WriteLine("--- Link Read ---");
-            ClearLine(Console.CursorTop);
             Console.WriteLine("Link: " + link.Uri.AbsoluteUri);
-            ClearLine(Console.CursorTop);
             Console.WriteLine();
         }
 
@@ -185,10 +170,10 @@ namespace DemoTest1
         {
             int x = Console.CursorLeft;
             int y = Console.CursorTop;
-            Console.CursorTop = Console.WindowTop + Console.WindowHeight - 1;
+            Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Percentage Read: {0:N2}%  Items: {1} Time: {2}:{3} Seconds",percent,items, time.Seconds, time.Milliseconds);
+            Console.Write("Percentage Read: {0:N2}%  \nItems: {1} Time: {2}:{3} Seconds",percent,items, time.Seconds, time.Milliseconds);
 
             // Restore previous position
             Console.BackgroundColor = ConsoleColor.Black;
@@ -210,11 +195,16 @@ namespace DemoTest1
             return false;
         }
 
-        private void ClearLine(int y)
+        private void ClearInformation()
         {
             int currentY = Console.CursorTop;
-            Console.SetCursorPosition(0,y);
-            Console.Write(new string(' ', Console.WindowWidth-1));
+            Console.SetCursorPosition(0,Console.WindowHeight + Console.WindowTop-2);
+            //Console.BackgroundColor = ConsoleColor.Red;
+            string emptyLine = new string(' ', Console.WindowWidth - 1);
+            Console.Write(emptyLine);
+            Console.Write(emptyLine);
+            //Console.BackgroundColor = ConsoleColor.Black;
+
             Console.SetCursorPosition(0, currentY);
         }
 
