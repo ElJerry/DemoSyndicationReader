@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "6040d52a3c45540ca87a1b34a662e6e8babfbffd"
+    "signature": "bc8fe9e4f8a11fc2a5b615c56fa4b60c09b2721f"
   },
   "compilationOptions": {},
   "targets": {
@@ -14,9 +14,10 @@
           "DemoTest1.dll": {}
         }
       },
+      "microsoft.netcore.platforms/2.0.0-preview2-25315-02": {},
       "microsoft.syndicationfeed/1.0.0": {
         "runtime": {
-          "lib/netstandard1.1/Microsoft.SyndicationFeed.dll": {}
+          "lib/netstandard1.3/Microsoft.SyndicationFeed.dll": {}
         }
       }
     }
@@ -27,10 +28,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "microsoft.netcore.platforms/2.0.0-preview2-25315-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O67uiI9rvnWtTcRnHCxCVe5WrxLPwdPmHNPK9C1fK8lqiTeNCErDu0zAcKmUdJuSJTQBMz6TA+w7hecGmg9JvA==",
+      "path": "microsoft.netcore.platforms/2.0.0-preview2-25315-02",
+      "hashPath": "microsoft.netcore.platforms.2.0.0-preview2-25315-02.nupkg.sha512"
+    },
     "microsoft.syndicationfeed/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FNqbpnCZpmLhr8bEsm/P5kb+aFFVD385w/Za1EL3tZO/bmjeCWjMzA0guWIn8JZS4tA2b90yWjiw/3cqKr9E6Q==",
+      "sha512": "sha512-OJUduBtYTzJI15fDpiYmtDdycT27nXrGsUiYmuobYyO7DNTkhkJSEDTIKamZ1g6B6h+p5JxY+FEn2n9bZyhKRA==",
       "path": "microsoft.syndicationfeed/1.0.0",
       "hashPath": "microsoft.syndicationfeed.1.0.0.nupkg.sha512"
     }

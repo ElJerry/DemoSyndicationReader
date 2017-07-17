@@ -13,7 +13,8 @@ namespace DemoTest1
         {
             FeedReaderConsumer feedReaderConsumer = new FeedReaderConsumer();
 
-            Task read = feedReaderConsumer.ConsumeFeed("rss20.xml");
+            Task read = feedReaderConsumer.ConsumeFeed("bigrss.xml");
+            //Task read = feedReaderConsumer.ConsumeFeed(@"\\funbox\Share\Personal\t-luhurt\feed3gb.xml");
             Task.WaitAll(read);
         }
     }

@@ -1,10 +1,8 @@
 ﻿using Microsoft.SyndicationFeed;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -23,19 +21,21 @@ namespace DemoTest1
         {
             bool verbose = false;
 
-            //Information to display.
-            double size = new System.IO.FileInfo(filePath).Length;
+            // Information to display.
+            double size = new FileInfo(filePath).Length;
             double currentSize = 0;
             int itemsRead = 0;
 
+            // Transform the size of the file to Kb - Mb - Gb.
             Tuple<double, string> sizeInfo = ConvertBytesToSize(size);
+
+            // Display the Size of the feed and ask for verbose.
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Size of the Feed: {0:N2} {1}",sizeInfo.Item1,sizeInfo.Item2); 
             Console.Write("Verbose Items (Y/N): ");
             Console.ForegroundColor = ConsoleColor.White;
             string input = Console.ReadLine();
             verbose = ValidateVerbose(input);
-
             Console.CursorVisible = false;
             Stopwatch stopWatch = null;
 
@@ -111,12 +111,15 @@ namespace DemoTest1
                             break;
                     }
 
-                    double percentage = Math.Min(((currentSize * 100) / size), 90);
+                    double percentage = Math.Min(((currentSize * 100) / size), 98);
 
                     WriteInformation(percentage, itemsRead, stopWatch.Elapsed);
                 }
             }
             ClearInformation();
+
+            //Print end of reading
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Finished Reading, press enter to close.\n\n");
             WriteInformation(100, itemsRead, stopWatch.Elapsed);
             Console.ReadLine();
@@ -159,7 +162,7 @@ namespace DemoTest1
             Console.WriteLine();
         }
 
-        private static void DisplayCategory(ISyndicationCategory category)
+        private void DisplayCategory(ISyndicationCategory category)
         {
             Console.WriteLine("--- Category Read ---");
             Console.WriteLine("Category: " + category.Name);
@@ -173,12 +176,21 @@ namespace DemoTest1
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Percentage Read: {0:N2}%  \nItems: {1} Time: {2}:{3} Seconds",percent,items, time.Seconds, time.Milliseconds);
 
-            // Restore previous position
+            Console.Write("Percentage Read: {0:N2}%  ",percent);
+            //Continue line in black where we finished the blue square.
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
-            
+            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft-1));
+
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Write("Items: {0} Time: {1}:{2} Seconds  ",items, time.Seconds, time.Milliseconds);
+            //Continue line in black where we finished the blue square.
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft -1));
+
+            // Restore previous position and colors
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;            
             Console.SetCursorPosition(x, y);
         }
 
@@ -186,9 +198,8 @@ namespace DemoTest1
         {
             input = input.Trim();
             input = input.ToUpper();
-            char answer = input[0];
 
-            if(answer == 'Y')
+            if(input[0] == 'Y')
             {
                 return true;
             }
@@ -199,19 +210,16 @@ namespace DemoTest1
         {
             int currentY = Console.CursorTop;
             Console.SetCursorPosition(0,Console.WindowHeight + Console.WindowTop-2);
-            //Console.BackgroundColor = ConsoleColor.Red;
             string emptyLine = new string(' ', Console.WindowWidth - 1);
             Console.Write(emptyLine);
             Console.Write(emptyLine);
-            //Console.BackgroundColor = ConsoleColor.Black;
-
             Console.SetCursorPosition(0, currentY);
         }
 
         private Tuple<double,string> ConvertBytesToSize(double bytes)
         {
             int timesDivided = 0;
-
+            double _bytes = bytes;
             while(bytes > 1024)
             {
                 timesDivided++;
@@ -236,6 +244,7 @@ namespace DemoTest1
                     break;
                 default:
                     name = "Bytes";
+                    bytes = _bytes;
                     break;
             }
 
