@@ -1,0 +1,38 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.0",
+    "signature": "6040d52a3c45540ca87a1b34a662e6e8babfbffd"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.0": {
+      "demotest1/1.0.0": {
+        "dependencies": {
+          "Microsoft.SyndicationFeed": "1.0.0"
+        },
+        "runtime": {
+          "DemoTest1.dll": {}
+        }
+      },
+      "microsoft.syndicationfeed/1.0.0": {
+        "runtime": {
+          "lib/netstandard1.1/Microsoft.SyndicationFeed.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "demotest1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "microsoft.syndicationfeed/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FNqbpnCZpmLhr8bEsm/P5kb+aFFVD385w/Za1EL3tZO/bmjeCWjMzA0guWIn8JZS4tA2b90yWjiw/3cqKr9E6Q==",
+      "path": "microsoft.syndicationfeed/1.0.0",
+      "hashPath": "microsoft.syndicationfeed.1.0.0.nupkg.sha512"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<item>
+	<title><![CDATA[Lorem ipsum 2017-07-06T20:25:00+00:00]]></title>
+	<description><![CDATA[Exercitation sit dolore mollit et est eiusmod veniam aute officia veniam ipsum.]]></description>
+	<link>http://example.com/test/1499372700</link>
+</item>
