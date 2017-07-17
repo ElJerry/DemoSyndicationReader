@@ -1,13 +1,17 @@
-﻿using Microsoft.SyndicationFeed;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace DemoTest1
 {
+    using Microsoft.SyndicationFeed;
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Xml;
+
     class FeedReaderConsumer
     {
         //Average size of item
@@ -27,7 +31,7 @@ namespace DemoTest1
             int itemsRead = 0;
 
             // Transform the size of the file to Kb - Mb - Gb.
-            Tuple<double, string> sizeInfo = ConvertBytesToSize(size);
+            Tuple<double, string> sizeInfo = utils.ConvertBytesToSize(size);
 
             // Display the Size of the feed and ask for verbose.
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -35,7 +39,7 @@ namespace DemoTest1
             Console.Write("Verbose Items (Y/N): ");
             Console.ForegroundColor = ConsoleColor.White;
             string input = Console.ReadLine();
-            verbose = ValidateVerbose(input);
+            verbose = utils.ValidateVerbose(input);
             Console.CursorVisible = false;
             Stopwatch stopWatch = null;
 
@@ -44,12 +48,13 @@ namespace DemoTest1
                 var reader = new Rss20FeedReader(xmlReader);
                 stopWatch = new Stopwatch();
                 stopWatch.Start();
+                ElementDisplayer displayer = new ElementDisplayer();
 
                 while (await reader.Read())
                 {
                     if (verbose)
                     {
-                        ClearInformation();
+                        utils.ClearInformation();
                     }
 
                     switch (reader.ElementType)
@@ -58,7 +63,7 @@ namespace DemoTest1
                             ISyndicationContent content = await reader.ReadContent();
                             if (verbose)
                             {
-                                DisplayContent(content);
+                                displayer.DisplayContent(content);
                             }
                             currentSize += Encoding.Unicode.GetByteCount(content.RawContent);
                             break;
@@ -69,7 +74,7 @@ namespace DemoTest1
                             itemsRead++;
                             if (verbose)
                             {
-                                DisplayItem(item);
+                                displayer.DisplayItem(item);
                             }
                             currentSize += _sizeOfItem;
                             break;
@@ -78,7 +83,7 @@ namespace DemoTest1
                             ISyndicationPerson person = await ReadPerson(reader);
                             if (verbose)
                             {
-                                DisplayPerson(person);
+                                displayer.DisplayPerson(person);
                             }
                             currentSize += _sizeOfPerson;
                             break;
@@ -87,7 +92,7 @@ namespace DemoTest1
                             ISyndicationImage image = await ReadImage(reader);
                             if (verbose)
                             {
-                                DisplayImage(image);
+                                displayer.DisplayImage(image);
                             }
                             currentSize += _sizeOfImage;
                             break;
@@ -96,7 +101,7 @@ namespace DemoTest1
                             ISyndicationLink link = await ReadLink(reader);
                             if (verbose)
                             {
-                                DisplayLink(link);
+                                displayer.DisplayLink(link);
                             }
                             currentSize += _sizeOfLink;
                             break;
@@ -105,7 +110,7 @@ namespace DemoTest1
                             ISyndicationCategory category = await ReadCategory(reader);
                             if (verbose)
                             {
-                                DisplayCategory(category);
+                                displayer.DisplayCategory(category);
                             }
                             currentSize += _sizeOfCategory;
                             break;
@@ -113,144 +118,19 @@ namespace DemoTest1
 
                     double percentage = Math.Min(((currentSize * 100) / size), 98);
 
-                    WriteInformation(percentage, itemsRead, stopWatch.Elapsed);
+                    utils.WriteInformation(percentage, itemsRead, stopWatch.Elapsed);
                 }
             }
-            ClearInformation();
+            utils.ClearInformation();
 
             //Print end of reading
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Finished Reading, press enter to close.\n\n");
-            WriteInformation(100, itemsRead, stopWatch.Elapsed);
+            utils.WriteInformation(100, itemsRead, stopWatch.Elapsed);
             Console.ReadLine();
         }
 
-        private void DisplayContent(ISyndicationContent content)
-        {
-            Console.WriteLine("--- Content read ---");
-            Console.WriteLine(content.Name + ": " + content.RawContent);
-            Console.WriteLine();
-        }
-
-        private void DisplayItem(ISyndicationItem item)
-        {
-            Console.WriteLine("--- Item Read ---");
-            Console.WriteLine("Title: " + item.Title);
-            Console.WriteLine("Description: " + item.Description);
-            Console.WriteLine("PubDate: " + item.Published);
-            Console.WriteLine();
-        }
-
-        private void DisplayPerson(ISyndicationPerson person)
-        {
-            Console.WriteLine("--- Person Read ---");
-            Console.WriteLine("Email: " + person.Email);
-            Console.WriteLine();
-        }
-
-        private void DisplayImage(ISyndicationImage image)
-        {
-            Console.WriteLine("--- Image Read ---");
-            Console.WriteLine("Image Link: " + image.Link.Uri.AbsoluteUri);
-            Console.WriteLine();
-        }
-
-        private void DisplayLink(ISyndicationLink link)
-        {
-            Console.WriteLine("--- Link Read ---");
-            Console.WriteLine("Link: " + link.Uri.AbsoluteUri);
-            Console.WriteLine();
-        }
-
-        private void DisplayCategory(ISyndicationCategory category)
-        {
-            Console.WriteLine("--- Category Read ---");
-            Console.WriteLine("Category: " + category.Name);
-            Console.WriteLine();
-        }
-
-        private void WriteInformation(double percent, int items, TimeSpan time)
-        {
-            int x = Console.CursorLeft;
-            int y = Console.CursorTop;
-            Console.CursorTop = Console.WindowTop + Console.WindowHeight - 2;
-            Console.BackgroundColor = ConsoleColor.Blue;
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.Write("Percentage Read: {0:N2}%  ",percent);
-            //Continue line in black where we finished the blue square.
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft-1));
-
-            Console.BackgroundColor = ConsoleColor.Blue;
-            Console.Write("Items: {0} Time: {1}:{2} Seconds  ",items, time.Seconds, time.Milliseconds);
-            //Continue line in black where we finished the blue square.
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft -1));
-
-            // Restore previous position and colors
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;            
-            Console.SetCursorPosition(x, y);
-        }
-
-        private bool ValidateVerbose(string input)
-        {
-            input = input.Trim();
-            input = input.ToUpper();
-
-            if(input[0] == 'Y')
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void ClearInformation()
-        {
-            int currentY = Console.CursorTop;
-            Console.SetCursorPosition(0,Console.WindowHeight + Console.WindowTop-2);
-            string emptyLine = new string(' ', Console.WindowWidth - 1);
-            Console.Write(emptyLine);
-            Console.Write(emptyLine);
-            Console.SetCursorPosition(0, currentY);
-        }
-
-        private Tuple<double,string> ConvertBytesToSize(double bytes)
-        {
-            int timesDivided = 0;
-            double _bytes = bytes;
-            while(bytes > 1024)
-            {
-                timesDivided++;
-                bytes /= 1024;
-            }
-
-            string name = null;
-
-            switch (timesDivided)
-            {
-                case 1:
-                    name = "Kb";
-                    break;
-                case 2:
-                    name = "Mb";
-                    break;
-                case 3:
-                    name = "Gb";
-                    break;
-                case 4:
-                    name = "Tb";
-                    break;
-                default:
-                    name = "Bytes";
-                    bytes = _bytes;
-                    break;
-            }
-
-            Tuple<double, string> result = new Tuple<double, string>(bytes,name);
-            return result;
-        }
+        
 
         private async Task<ISyndicationItem> ReadItem(Rss20FeedReader reader)
         {
