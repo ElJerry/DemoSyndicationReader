@@ -22,10 +22,10 @@ namespace DemoTest1
             Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft));
 
             Console.BackgroundColor = ConsoleColor.Blue;
-            Console.Write("Items: {0} Time: {1}:{2} Seconds  ", items, time.Seconds, time.Milliseconds);
+            Console.Write("Items: {0} Time: {1:00}:{2:00}:{3:00}   ", items, time.Minutes, time.Seconds, time.Milliseconds);
             //Continue line in black where we finished the blue square.
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft - 1));
+            Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft-1));
 
             // Restore previous position and colors
             Console.BackgroundColor = ConsoleColor.Black;

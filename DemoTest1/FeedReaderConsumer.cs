@@ -14,7 +14,7 @@ namespace DemoTest1
 
     class FeedReaderConsumer
     {
-        //Average size of item
+        //Approx. size of elements
         private int _sizeOfItem = 0;
         private int _sizeOfPerson = 0;
         private int _sizeOfImage = 0;
@@ -61,11 +61,12 @@ namespace DemoTest1
                     {
                         case SyndicationElementType.Content:
                             ISyndicationContent content = await reader.ReadContent();
+
                             if (verbose)
                             {
                                 displayer.DisplayContent(content);
                             }
-                            currentSize += Encoding.Unicode.GetByteCount(content.RawContent);
+                            //currentSize += Encoding.Unicode.GetByteCount(content.RawContent);
                             break;
 
                         case SyndicationElementType.Item:
@@ -85,7 +86,7 @@ namespace DemoTest1
                             {
                                 displayer.DisplayPerson(person);
                             }
-                            currentSize += _sizeOfPerson;
+                            //currentSize += _sizeOfPerson;
                             break;
 
                         case SyndicationElementType.Image:
@@ -94,7 +95,7 @@ namespace DemoTest1
                             {
                                 displayer.DisplayImage(image);
                             }
-                            currentSize += _sizeOfImage;
+                            //currentSize += _sizeOfImage;
                             break;
 
                         case SyndicationElementType.Link:
@@ -103,7 +104,7 @@ namespace DemoTest1
                             {
                                 displayer.DisplayLink(link);
                             }
-                            currentSize += _sizeOfLink;
+                            //currentSize += _sizeOfLink;
                             break;
 
                         case SyndicationElementType.Category:
@@ -112,13 +113,16 @@ namespace DemoTest1
                             {
                                 displayer.DisplayCategory(category);
                             }
-                            currentSize += _sizeOfCategory;
+                            //currentSize += _sizeOfCategory;
                             break;
                     }
 
-                    double percentage = Math.Min(((currentSize * 100) / size), 98);
+                    double percentage = ((currentSize * 100) / size);
 
-                    utils.WriteInformation(percentage, itemsRead, stopWatch.Elapsed);
+                    if(itemsRead % 200 == 0)
+                    {
+                        utils.WriteInformation(percentage, itemsRead, stopWatch.Elapsed);
+                    }
                 }
             }
             utils.ClearInformation();
@@ -128,9 +132,7 @@ namespace DemoTest1
             Console.WriteLine("Finished Reading, press enter to close.\n\n");
             utils.WriteInformation(100, itemsRead, stopWatch.Elapsed);
             Console.ReadLine();
-        }
-
-        
+        }      
 
         private async Task<ISyndicationItem> ReadItem(Rss20FeedReader reader)
         {
@@ -139,8 +141,10 @@ namespace DemoTest1
             {
                 //The size of the item has not been read.
                 ISyndicationContent content = await reader.ReadContent();
-                _sizeOfItem = Encoding.Unicode.GetByteCount(content.RawContent);
-                item = new Rss20FeedFormatter().ParseItem(content.RawContent);
+                //_sizeOfItem = Encoding.UTF8.GetByteCount(content.RawContent);
+                _sizeOfItem = 291; // content.RawContent.Length;
+
+                item = reader.Formatter.ParseItem(content.RawContent);
             }
             else
             {
@@ -157,7 +161,7 @@ namespace DemoTest1
             {
                 //The size of the item has not been read.
                 ISyndicationContent content = await reader.ReadContent();
-                _sizeOfPerson = Encoding.Unicode.GetByteCount(content.RawContent);
+                _sizeOfPerson = Encoding.UTF8.GetByteCount(content.RawContent);
                 person = new Rss20FeedFormatter().ParsePerson(content.RawContent);
             }
             else
@@ -175,7 +179,7 @@ namespace DemoTest1
             {
                 //The size of the item has not been read.
                 ISyndicationContent content = await reader.ReadContent();
-                _sizeOfImage = Encoding.Unicode.GetByteCount(content.RawContent);
+                _sizeOfImage = Encoding.UTF8.GetByteCount(content.RawContent);
                 image = new Rss20FeedFormatter().ParseImage(content.RawContent);
             }
             else
@@ -193,7 +197,7 @@ namespace DemoTest1
             {
                 //The size of the item has not been read.
                 ISyndicationContent content = await reader.ReadContent();
-                _sizeOfImage = Encoding.Unicode.GetByteCount(content.RawContent);
+                _sizeOfLink = Encoding.UTF8.GetByteCount(content.RawContent);
                 link = new Rss20FeedFormatter().ParseLink(content.RawContent);
             }
             else
@@ -211,7 +215,7 @@ namespace DemoTest1
             {
                 //The size of the item has not been read.
                 ISyndicationContent content = await reader.ReadContent();
-                _sizeOfCategory = Encoding.Unicode.GetByteCount(content.RawContent);
+                _sizeOfCategory = Encoding.UTF8.GetByteCount(content.RawContent);
                 category = new Rss20FeedFormatter().ParseCategory(content.RawContent);
             }
             else
