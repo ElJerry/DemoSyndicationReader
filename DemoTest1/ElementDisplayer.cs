@@ -12,7 +12,7 @@ namespace DemoTest1
         internal void DisplayContent(ISyndicationContent content)
         {
             Console.WriteLine("--- Content read ---");
-            Console.WriteLine(content.Name + ": " + content.RawContent);
+            Console.WriteLine(content.Name + ": " + content.Value);
             Console.WriteLine();
         }
 
