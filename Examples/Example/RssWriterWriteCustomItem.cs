@@ -4,6 +4,11 @@
 
 /*
  * 
+ * In this example we show how to create an item using SyndicationContent.
+ * Everything in SyndicationFeed can be represented as SyndicationContent.
+ * 
+ * If the user needs to create a custom object for parsing he can do the 
+ * following.
  * 
  */
 
@@ -31,22 +36,28 @@ namespace Examples
 
 
                 //
-                // Create an item
-                var item = new SyndicationItem();
-                item.Title = "Rss Writer Avaliable";
-                item.Description = "The new Rss Writer is now avaliable to download as NuGet Package!";
-                item.AddLink(new SyndicationLink(new Uri("https://github.com/dotnet/wcf"), Rss20LinkTypes.Alternate));
-                item.AddCategory(new SyndicationCategory("Technology"));
-                item.Id = "https://github.com/dotnet/wcf/tree/lab/lab/src/Microsoft.SyndicationFeed/src";
-                item.AddContributor(new SyndicationPerson() { Email = "test@mail.com", RelationshipType = Rss20ContributorTypes.Author });
+                // Create an item as content
+                var item = new SyndicationContent(Rss20ElementNames.Item);
 
-                //
-                // Format it to a content
-                SyndicationContent itemContent = formatter.CreateContent(item) as SyndicationContent;
+                // Add Title
+                item.AddField(new SyndicationContent(Rss20ElementNames.Title, "Rss Writer Avaliable"));
 
-                itemContent.AddField(new SyndicationContent("ExtraField", "Extra value"));
+                // Add Description
+                item.AddField(new SyndicationContent(Rss20ElementNames.Description, "The new Rss Writer is now avaliable to download as NuGet Package!"));
 
-                await writer.Write(itemContent);
+                // Add Link
+                item.AddField(new SyndicationContent(Rss20ElementNames.Link, "https://github.com/dotnet/wcf"));
+
+                // Add Category
+                item.AddField(new SyndicationContent(Rss20ElementNames.Category, "Technology"));
+
+                // Add Contributor
+                item.AddField(new SyndicationContent(Rss20ElementNames.Author, "test@mail.com"));
+
+                // Add Custom fields
+                item.AddField(new SyndicationContent("CustomField", "Custom Value"));
+
+                await writer.Write(item);
 
                 xmlWriter.Flush();
             }
