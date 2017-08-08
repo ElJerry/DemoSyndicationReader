@@ -17,10 +17,10 @@ namespace DemoTest1
     {
         //Approx. size of elements
         private int _sizeOfItem = 0;
-        private int _sizeOfPerson = 0;
-        private int _sizeOfImage = 0;
-        private int _sizeOfLink = 0;
-        private int _sizeOfCategory = 0;
+        //private int _sizeOfPerson = 0;
+        //private int _sizeOfImage = 0;
+        //private int _sizeOfLink = 0;
+        //private int _sizeOfCategory = 0;
 
         public async Task ConsumeFeed(string filePath)
         {
@@ -38,8 +38,10 @@ namespace DemoTest1
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Size of the Feed: {0:N2} {1}",sizeInfo.Item1,sizeInfo.Item2); 
             Console.Write("Verbose Items (Y/N): ");
+
             Console.ForegroundColor = ConsoleColor.White;
             string input = Console.ReadLine();
+
             verbose = utils.ValidateVerbose(input);
             Console.CursorVisible = false;
             Stopwatch stopWatch = null;

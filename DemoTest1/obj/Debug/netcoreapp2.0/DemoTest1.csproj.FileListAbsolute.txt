@@ -36,4 +36,3 @@ C:\Users\t-luhurt\Desktop\demo\DemoSyndicationReader\DemoTest1\obj\Debug\netcore
 C:\Users\t-luhurt\Desktop\demo\DemoSyndicationReader\DemoTest1\obj\Debug\netcoreapp2.0\DemoTest1.pdb
 C:\Users\t-luhurt\Desktop\demo\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\TestFeeds\bigRss.xml
 C:\Users\t-luhurt\Desktop\demo\DemoSyndicationReader\DemoTest1\bin\Debug\netcoreapp2.0\TestFeeds\rss20.xml
-C:\Users\t-luhurt\Desktop\demo\DemoSyndicationReader\DemoTest1\obj\Debug\netcoreapp2.0\RemoveDepsFileConflicts.semaphore
