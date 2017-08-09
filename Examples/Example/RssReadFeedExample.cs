@@ -12,7 +12,7 @@ using System.Xml;
 /// <summary>
 /// A simple Rss 2.0 FeedReader that consumes an entire feed.
 /// </summary>
-class RssReadFeedExample
+class RssReadFeed
 {
     // Read an RssFeed
     public static async Task CreateRssFeedReaderExample(string filePath)
