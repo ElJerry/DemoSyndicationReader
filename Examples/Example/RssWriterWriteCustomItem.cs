@@ -10,49 +10,46 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Examples
+
+/// <summary>
+/// Create a SyndicationItem and add a custom field.
+/// </summary>
+class RssWriteItemWithCustomElement
 {
-    /// <summary>
-    /// Create a SyndicationItem and add a custom field.
-    /// </summary>
-    class RssWriteItemWithCustomElement
+    public static async Task WriteCustomItem()
     {
-        public static async Task WriteCustomItem()
+        var sw = new StringWriter();
+        using (XmlWriter xmlWriter = XmlWriter.Create(sw))
         {
-            var sw = new StringWriter();
-            using (XmlWriter xmlWriter = XmlWriter.Create(sw))
-            {
-                var formatter = new Rss20Formatter();
-                var writer = new Rss20FeedWriter(xmlWriter);
+            var formatter = new Rss20Formatter();
+            var writer = new Rss20FeedWriter(xmlWriter);
               
-                // Create item
-                var item = new SyndicationItem()
-                {
-                    Title = "Rss Writer Avaliable",
-                    Description = "The new Rss Writer is now open source!",
-                    Id = "https://github.com/dotnet/wcf/tree/lab/lab/src/Microsoft.SyndicationFeed/src",
-                    Published = DateTimeOffset.UtcNow
-                };
+            // Create item
+            var item = new SyndicationItem()
+            {
+                Title = "Rss Writer Avaliable",
+                Description = "The new Rss Writer is now open source!",
+                Id = "https://github.com/dotnet/wcf/tree/lab/lab/src/Microsoft.SyndicationFeed/src",
+                Published = DateTimeOffset.UtcNow
+            };
 
-                item.AddCategory(new SyndicationCategory("Technology"));
-                item.AddContributor(new SyndicationPerson() { Email = "test@mail.com" });
+            item.AddCategory(new SyndicationCategory("Technology"));
+            item.AddContributor(new SyndicationPerson() { Email = "test@mail.com" });
 
-                //
-                // Format the item as SyndicationContent
-                var content = new SyndicationContent(formatter.CreateContent(item));
+            //
+            // Format the item as SyndicationContent
+            var content = new SyndicationContent(formatter.CreateContent(item));
 
-                // Add custom fields/attributes
-                content.AddField(new SyndicationContent("CustomElement", "My Value"));
+            // Add custom fields/attributes
+            content.AddField(new SyndicationContent("CustomElement", "My Value"));
 
-                // Write 
-                await writer.Write(content);
+            // Write 
+            await writer.Write(content);
 
-                // Done
-                xmlWriter.Flush();
-            }
-
-            string res = sw.ToString();
-            Console.WriteLine(res);
+            // Done
+            xmlWriter.Flush();
         }
+            
+        Console.WriteLine(sw.ToString());
     }
 }
