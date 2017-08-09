@@ -2,88 +2,90 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-/*
- * 
- * In this example we will create a simple RSS Feed, giving the user the
- * idea of how to use the writer.
- * 
- */
-
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
 using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Examples
+
+/// <summary>
+/// Create simple RSS 2.0 feed
+/// </summary>
+class CreateSimpleRssFeed
 {
-    class RssFeedWriterExample
+    public static async Task WriteFeed()
     {
-        public static async Task WriteFeed()
+        var sw = new StringWriter();
+
+        using (XmlWriter xmlWriter = XmlWriter.Create(sw, new XmlWriterSettings() { Indent = true }))
         {
-            var sw = new StringWriter();
-            using (XmlWriter xmlWriter = XmlWriter.Create(sw, new XmlWriterSettings() { Encoding = Encoding.UTF8 }))
+            var writer = new Rss20FeedWriter(xmlWriter);
+
+            //
+            // Add Title
+            await writer.WriteValue(Rss20ElementNames.Title, "Example of Rss20FeedWriter");
+
+            //
+            // Add Description
+            await writer.WriteValue(Rss20ElementNames.Description, "Hello World, RSS!");
+
+            //
+            // Add Link
+            await writer.Write(new SyndicationLink(new Uri("https://github.com/dotnet/wcf")));
+
+            //
+            // Add ManagingEditor
+            await writer.Write(new SyndicationPerson()
             {
-                var writer = new Rss20FeedWriter(xmlWriter);
+                Email = "managingeditor@contoso.com",
+                RelationshipType = Rss20ContributorTypes.ManagingEditor
+            });
 
-                //
-                // Title
-                var title = new SyndicationContent(Rss20ElementNames.Title, "Example of Rss20FeedWriter");
-                await writer.Write(title);
+            //
+            // Add PubDate
+            await writer.WriteValue(Rss20ElementNames.PubDate, DateTimeOffset.UtcNow);
 
-                //
-                // Description
-                var description = new SyndicationContent(Rss20ElementNames.Description, "This feed is for educational purposes only");
-                await writer.Write(description);
+            //
+            // Add custom element
+            var customElement = new SyndicationContent("customElement");
 
-                //
-                // Link
-                var link = new SyndicationLink(new Uri("https://github.com/dotnet/wcf"), Rss20LinkTypes.Alternate);
-                await writer.Write(link);
+            customElement.AddAttribute(new SyndicationAttribute("attr1", "true"));
+            customElement.AddField(new SyndicationContent("Company", "Contoso"));
 
-                //
-                // ManagingEditor
-                var managingEditor = new SyndicationPerson()
+            await writer.Write(customElement);
+
+            //
+            // Add Items
+            for (int i = 0; i < 5; ++i)
+            {
+                var item = new SyndicationItem()
                 {
-                    Email = "managingeditor@contoso.com",
-                    RelationshipType = Rss20ContributorTypes.ManagingEditor
+                    Id = "https://github.com/dotnet/wcf/tree/lab/lab/src/Microsoft.SyndicationFeed/src",
+                    Title = $"Item #{i + 1}",
+                    Description = "The new Rss Writer is now open source!",
+                    Published = DateTimeOffset.UtcNow
                 };
-                await writer.Write(managingEditor);
 
-                //
-                // PubDate
-                var pubDate = new SyndicationContent(Rss20ElementNames.PubDate, "Thu, 06 Jul 2017 20:25:00 GMT");
-                await writer.Write(pubDate);
-
-                //
-                // CustomElement
-                var CustomElement = new SyndicationContent("ExtraInformation");
-
-                // Add any field or attributes
-                CustomElement.AddAttribute(new SyndicationAttribute("customElement","true"));
-                CustomElement.AddField(new SyndicationContent("Company", "Contoso"));
-                CustomElement.AddField(new SyndicationContent("Year", "2017"));
-                await writer.Write(CustomElement);
-
-                //
-                // Items
-                var item = new SyndicationItem();
-                item.Title = "Rss Writer Avaliable";
-                item.Description = "The new Rss Writer is now avaliable to download as NuGet Package!";
-                item.AddLink(new SyndicationLink(new Uri("https://github.com/dotnet/wcf"), Rss20LinkTypes.Alternate));
+                item.AddLink(new SyndicationLink(new Uri("https://github.com/dotnet/wcf")));
                 item.AddCategory(new SyndicationCategory("Technology"));
-                item.Id = "https://github.com/dotnet/wcf/tree/lab/lab/src/Microsoft.SyndicationFeed/src";
-                item.AddContributor(new SyndicationPerson() { Email = "test@mail.com", RelationshipType = Rss20ContributorTypes.Author });
+                item.AddContributor(new SyndicationPerson()
+                {
+                    Email = "user@contoso.com",
+                    RelationshipType = Rss20ContributorTypes.Author
+                });
 
                 await writer.Write(item);
-
-                xmlWriter.Flush();
             }
 
-            string result = sw.ToString();
-            Console.WriteLine(result);
+            //
+            // Done
+            xmlWriter.Flush();
         }
+
+        //
+        // Ouput the feed
+        Console.WriteLine(sw.ToString());
     }
 }

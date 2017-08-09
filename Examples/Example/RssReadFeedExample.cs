@@ -13,9 +13,9 @@
 
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
+using System;
 using System.Threading.Tasks;
 using System.Xml;
-using System;
 
 namespace Examples
 {
@@ -38,11 +38,6 @@ namespace Examples
 
                     switch (feedReader.ElementType)
                     {
-                        // Read as content
-                        case SyndicationElementType.Content:
-                            ISyndicationContent content = await feedReader.ReadContent(); 
-                            break;
-
                         // Read as category
                         case SyndicationElementType.Category:
                             ISyndicationCategory category = await feedReader.ReadCategory();
@@ -66,6 +61,11 @@ namespace Examples
                         // Read as Person
                         case SyndicationElementType.Person:
                             ISyndicationPerson person = await feedReader.ReadPerson();
+                            break;
+
+                        // Read as content
+                        default:
+                            ISyndicationContent content = await feedReader.ReadContent();
                             break;
                     }
                 }

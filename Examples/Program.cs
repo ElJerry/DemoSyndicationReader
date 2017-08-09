@@ -20,11 +20,15 @@ namespace Examples
             //t = RssReadItemAsContentExample.ReadItemAsContent();
             //Task.WaitAll(t);
 
-            //t = RssFeedWriterExample.WriteFeed();
+            //t = WriteFeed();
             //Task.WaitAll(t);
 
-            t = RssWriterWriteCustomItem.WriteCustomItem();
-            Task.WaitAll(t);
+            //t = RssWriterWriteCustomItem.WriteCustomItem();
+            //Task.WaitAll(t);
+
+            //t = AtomFeedReaderExample.ReadAtomFeed();
+            //Task.WaitAll(t);
+
         }
     }
 }
