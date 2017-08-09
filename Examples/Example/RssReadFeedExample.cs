@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml;
 
 /// <summary>
-/// A simple Rss 2.0 FeedReader that consumes an entire feed.
+/// Rss 2.0 FeedReader that consumes an entire feed.
 /// </summary>
 class RssReadFeed
 {

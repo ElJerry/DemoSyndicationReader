@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml;
 
 /// <summary>
-/// A simple RSS 2.0 Reader that processes RSS items with custom fields
+/// Reads RSS items with custom fields
 /// </summary>
 class ReadRssItemWithCustomFields
 {

@@ -14,10 +14,10 @@ namespace Examples
             Console.WriteLine("Syndication Feed Examples");
 
             Task t;
-            t = RssWriteItemWithCustomElement.WriteCustomItem();
-            t = AtomFeedReaderExample.ReadAtomFeed();
+            //t = RssWriteItemWithCustomElement.WriteCustomItem();
+            //t = AtomFeedReaderExample.ReadAtomFeed();
             
-            Task.WaitAll(t);
+            //Task.WaitAll(t);
         }
     }
 }

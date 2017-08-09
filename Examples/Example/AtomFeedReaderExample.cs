@@ -7,9 +7,8 @@ using Microsoft.SyndicationFeed.Atom;
 using System.Threading.Tasks;
 using System.Xml;
 
-
 /// <summary>
-/// A simple AtomFeedReader that consumes an entire Atom Feed.
+/// Consumes an entire atom feed using the AtomFeedReader.
 /// </summary>
 class AtomFeedReaderExample
 {
@@ -29,7 +28,7 @@ class AtomFeedReaderExample
             while (await reader.Read())
             {
                 //
-                // Check the ElementType of the field read.
+                // Check the type of the current element.
                 switch (reader.ElementType)
                 {
                     //

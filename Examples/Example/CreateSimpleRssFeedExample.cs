@@ -9,9 +9,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 
-
 /// <summary>
-/// Create simple RSS 2.0 feed
+/// Create an RSS 2.0 feed
 /// </summary>
 class CreateSimpleRssFeed
 {
@@ -36,7 +35,7 @@ class CreateSimpleRssFeed
             await writer.Write(new SyndicationLink(new Uri("https://github.com/dotnet/wcf")));
 
             //
-            // Add ManagingEditor
+            // Add managing editor
             await writer.Write(new SyndicationPerson()
             {
                 Email = "managingeditor@contoso.com",
@@ -44,7 +43,7 @@ class CreateSimpleRssFeed
             });
 
             //
-            // Add PubDate
+            // Add publish date
             await writer.WriteValue(Rss20ElementNames.PubDate, DateTimeOffset.UtcNow);
 
             //
