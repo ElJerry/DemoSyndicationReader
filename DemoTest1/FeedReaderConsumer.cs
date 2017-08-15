@@ -17,10 +17,6 @@ namespace DemoTest1
     {
         //Approx. size of elements
         private int _sizeOfItem = 0;
-        //private int _sizeOfPerson = 0;
-        //private int _sizeOfImage = 0;
-        //private int _sizeOfLink = 0;
-        //private int _sizeOfCategory = 0;
 
         public async Task ConsumeFeed(string filePath)
         {
@@ -156,17 +152,7 @@ namespace DemoTest1
         private async Task<ISyndicationPerson> ReadPerson(Rss20FeedReader reader)
         {
             ISyndicationPerson person = null;
-            //if (_sizeOfPerson == 0)
-            //{
-            //    //The size of the item has not been read.
-            //    ISyndicationContent content = await reader.ReadContent();
-            //    _sizeOfPerson = Encoding.UTF8.GetByteCount(content.RawContent);
-            //    person = new Rss20FeedFormatter().ParsePerson(content.RawContent);
-            //}
-            //else
-            //{
             person = await reader.ReadPerson();
-            //}
 
             return person;
         }
@@ -174,17 +160,7 @@ namespace DemoTest1
         private async Task<ISyndicationImage> ReadImage(Rss20FeedReader reader)
         {
             ISyndicationImage image = null;
-            //if (_sizeOfImage == 0)
-            //{
-            //    //The size of the item has not been read.
-            //    ISyndicationContent content = await reader.ReadContent();
-            //    _sizeOfImage = Encoding.UTF8.GetByteCount(content.RawContent);
-            //    image = new Rss20FeedFormatter().ParseImage(content.RawContent);
-            //}
-            //else
-            //{
             image = await reader.ReadImage();
-            //}
 
             return image;
         }
@@ -192,17 +168,7 @@ namespace DemoTest1
         private async Task<ISyndicationLink> ReadLink(Rss20FeedReader reader)
         {
             ISyndicationLink link = null;
-            //if (_sizeOfLink == 0)
-            //{
-            //    //The size of the item has not been read.
-            //    ISyndicationContent content = await reader.ReadContent();
-            //    _sizeOfLink = Encoding.UTF8.GetByteCount(content.RawContent);
-            //    link = new Rss20FeedFormatter().ParseLink(content.RawContent);
-            //}
-            //else
-            //{
             link = await reader.ReadLink();
-            //}
 
             return link;
         }
@@ -210,17 +176,7 @@ namespace DemoTest1
         private async Task<ISyndicationCategory> ReadCategory(Rss20FeedReader reader)
         {
             ISyndicationCategory category = null;
-            //if (_sizeOfCategory == 0)
-            //{
-            //    //The size of the item has not been read.
-            //    ISyndicationContent content = await reader.ReadContent();
-            //    _sizeOfCategory = Encoding.UTF8.GetByteCount(content.RawContent);
-            //    category = new Rss20FeedFormatter().ParseCategory(content.RawContent);
-            //}
-            //else
-            //{
             category = await reader.ReadCategory();
-            //}
 
             return category;
         }

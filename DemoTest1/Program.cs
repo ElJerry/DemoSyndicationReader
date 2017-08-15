@@ -5,16 +5,20 @@
 namespace DemoTest1
 {
     using System.Threading.Tasks;
-
     class Program
     {
         static void Main(string[] args)
         {
-            FeedReaderConsumer feedReaderConsumer = new FeedReaderConsumer();
 
-            Task read = feedReaderConsumer.ConsumeFeed(@"TestFeeds\rss20.xml");
-            //Task read = feedReaderConsumer.ConsumeFeed(@"\\funbox\Share\Personal\t-luhurt\feed3gb.xml");
-            Task.WaitAll(read);
+            //Demo read and write a feed
+            //Task demoReadWrite = ReaderConsoleExample.ReadFeed();
+            //Task.WaitAll(demoReadWrite);
+
+
+            //Demo feed 3gb
+            //Task Demo1 = new FeedReaderConsumer().ConsumeFeed(@"testfeeds\rss20.xml");
+            Task Demo1 = new FeedReaderConsumer().ConsumeFeed(@"\\funbox\Share\Personal\t-luhurt\feed3gb.xml");
+            Task.WaitAll(Demo1);
         }
     }
 }
