@@ -444,7 +444,7 @@
       ]
     },
     "Microsoft.SyndicationFeed/1.0.0": {
-      "sha512": "tc7axy6bs//9sFH5nXe8LwprOAet5JudI0snC5/71WGuxKH5rPwvGtvHQe8IdLy/xoNv6yw6n4uxD4Vwh/5gAw==",
+      "sha512": "VuMlyO01zOhqRvr1NLPhazIjEARAvb9FLIfQmthZCpoecrDMnuDhEuOYuEw54WA2/u0uDjnbtPqyq7k+LJR/zQ==",
       "type": "package",
       "path": "microsoft.syndicationfeed/1.0.0",
       "files": [

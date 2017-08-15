@@ -6,16 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\examples\AtomFeedReaderExample.cs" Link="Example\AtomFeedReaderExample.cs" />
+    <Compile Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\examples\CreateSimpleRssFeedExample.cs" Link="Example\CreateSimpleRssFeedExample.cs" />
+    <Compile Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\examples\ReadRssItemWithCustomFieldsExample.cs" Link="Example\ReadRssItemWithCustomFieldsExample.cs" />
+    <Compile Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\examples\RssReadFeedExample.cs" Link="Example\RssReadFeedExample.cs" />
+    <Compile Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\examples\RssWriteItemWithCustomElementExample.cs" Link="Example\RssWriteItemWithCustomElementExample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\tests\TestFeeds\rss20-2items.xml" Link="Feeds\rss20-2items.xml" />
+    <Content Include="..\..\..\..\..\..\git\wcf\lab\src\Microsoft.SyndicationFeed\tests\TestFeeds\simpleAtomFeed.xml" Link="Feeds\simpleAtomFeed.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.SyndicationFeed" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Feeds\rss20-2items.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Feeds\simpleAtomFeed.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Feeds\" />
   </ItemGroup>
 
 </Project>
