@@ -7,13 +7,13 @@ using Microsoft.SyndicationFeed;
 using System.Xml;
 using System.Threading;
 
-namespace DemoTest1
+namespace DemoReadWrite
 {
     class ReaderConsoleExample
     {
         public static async Task ReadFeed()
         {
-            using (XmlReader xmlReader = XmlReader.Create(@"testfeeds\rss20.xml", new XmlReaderSettings() { Async = true }))
+            using (XmlReader xmlReader = XmlReader.Create(@"..\DemoTest1\TestFeeds\rss20.xml", new XmlReaderSettings() { Async = true }))
             using (XmlWriter xmlWriter = XmlWriter.Create(Console.Out, new XmlWriterSettings() { Indent = true, Async = true }))
             {
                 Rss20FeedReader reader = new Rss20FeedReader(xmlReader);
@@ -55,7 +55,8 @@ namespace DemoTest1
                     }
 
                     xmlWriter.Flush();
-                    Thread.Sleep(200);
+                    // Simulate a slow stream.
+                    Thread.Sleep(300);
                 }
             }
         }

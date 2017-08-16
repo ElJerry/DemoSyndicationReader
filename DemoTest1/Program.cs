@@ -5,20 +5,17 @@
 namespace DemoTest1
 {
     using System.Threading.Tasks;
+    //using Microsoft.ServiceModel.Syndication;
+
     class Program
     {
         static void Main(string[] args)
         {
-
-            //Demo read and write a feed
-            //Task demoReadWrite = ReaderConsoleExample.ReadFeed();
-            //Task.WaitAll(demoReadWrite);
-
-
+            
             //Demo feed 3gb
             //Task Demo1 = new FeedReaderConsumer().ConsumeFeed(@"testfeeds\rss20.xml");
-            Task Demo1 = new FeedReaderConsumer().ConsumeFeed(@"\\funbox\Share\Personal\t-luhurt\feed3gb.xml");
-            Task.WaitAll(Demo1);
+            //Task Demo1 = new FeedReaderConsumer().ConsumeFeed(@"\\funbox\Share\Personal\t-luhurt\feed3gb.xml");
+            //Task.WaitAll(Demo1);
         }
     }
 }
